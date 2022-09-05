@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block main %}
+<div>
+    <section>
+        <h1>Platy</h1>
+        <h3>A messaging app for everyone</h3>
+    </section>
+    <section>
+        <h2>About</h2>
+        <p>
+            Platy aims to be a straightforward, elegant messaging platform that suits every type of end user.
+        </p>
+    </section>
+    <section>
+        <h2>Sign up now!</h2>
+        <p>
+            Create a free account and start connecting! 
+        </p>
+        <a href="{% url 'signup' %}">Sign up</a>
+    </section>
+</div>
+
+{% endblock %}

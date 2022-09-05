@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block main %}
+<div class="container login">
+    <h1>Log In</h1>
+
+    <div>
+    {% if user.is_authenticated %}
+        <p>You are already logged in. If you would like to login as a different user, please <a href="{% url 'logout' %}">logout</a>.
+        </p>
+    {% else %}
+        {% if form.errors %}
+            <p class="error">Your username and/or password are incorrect. Please try again.</p>
+        {% endif %}
+
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p>Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</p>
+            {% else %}
+                <p>Please login to see this page.</p>
+            {% endif %}
+        {% endif %}
+
+        <form id="login-form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <div class="login-form-username">
+                {{ form.username.label_tag  }}
+                {{ form.username }}
+            </div>
+            <div class="login-form-password">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            <!-- <input type="submit" value="login" class="btn login"> -->
+            <button type="submit" value="login" class="btn login">Login</button>
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+    </div>
+    {% endif %}
+
+    <button onclick="location.href='/accounts/password_reset'">Lost password?</button>
+    <!-- <a href="{% url 'password_reset' %}">Lost password?</a> -->    
+</div>
+{% endblock %}

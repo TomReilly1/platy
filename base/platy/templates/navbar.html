@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block header %}
+<nav>
+    <ul>
+        <li>
+            <span>Platy</span>
+        </li>
+        <li>
+            <div>
+                {% if user.is_authenticated %}
+                <span>{{user}}</span>
+                <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <span>Hello, stranger!</span>
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'signup' %}">Sign Up</a>
+                {% endif %}
+            </div>
+        </li>
+    </ul>
+</nav>
+
+{% endblock %}
