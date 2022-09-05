@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class DirectMessages(models.Model):
-    sender = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
-    receiver = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    msg_sender = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='sender_user')
+    msg_receiver = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='reciever_user')
     text_content = models.TextField(max_length=2000)
     date_posted = models.DateTimeField(auto_now_add=True)
 
