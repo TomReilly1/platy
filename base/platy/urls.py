@@ -1,4 +1,4 @@
-from django.urls import path, include, render
+from django.urls import path
 from . import views
 
 
