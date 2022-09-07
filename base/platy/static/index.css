@@ -1,26 +1,34 @@
 :root {
+    /* Platy Colors */
     --platy-yellow: rgb(255, 210, 8);
+    
     --platy-lightblue: rgb(66, 185, 206);
     --platy-blue: rgb(68, 136, 191);
+    --platy-darkblue: rgb(31, 88, 134);
 
+    --platy-lightgreen: rgb(68, 233, 82);
+    --platy-green: rgb(30, 231, 12);
+    --platy-darkgreen: rgb(7, 179, 36);
+
+
+    /* Dark Theme */
     --dark-bg-primary: rgb(43, 52, 92);
     --dark-bg-secondary: rgb(28, 36, 70);
     --dark-bg-tertiary: rgb(35, 43, 80);
+    
     --dark-primary: rgb(64, 74, 119);
     --dark-secondary: rgb(90, 101, 139);
+    
     --dark-font-primary: rgb(220,220,220);
     --dark-font-muted: rgb(159, 161, 190);
+    
     --dark-button: rgb(100,100,100);
 
+
+    /* Light Theme */
     --light-bg: rgb(43, 52, 92);
     --light-font: rgb(220,220,220);
 
-
-
-
-    --ttgray1: rgb(207, 217, 219);
-    --ttgray2: rgb(100, 100, 100);
-    --ttyellow1: rgb(255, 255, 139);
 }
 
 html, body {
@@ -64,11 +72,18 @@ hr {
     background-color: var(--platy-yellow);
 }
 
+.container {
+    width: 100%;
+    height: calc(100vh - 160px);
+    min-height: calc(100vh - 160px);
+}
+
+/* buttons */
 .btn, button {
     width: fit-content;
     height: fit-content;
     border-radius: 5px;
-    padding: 0px;
+    padding: 7px 10px;
     background-color: var(--dark-button);
     transition: filter 0.2s;
 }
@@ -79,30 +94,40 @@ hr {
 }
 
 .btn:hover, button:hover {
-    filter: brightness(90%);
-}
-
-.btn:active, button:active {
     filter: brightness(80%);
 }
 
-.container {
-    width: 100%;
-    height: calc(100vh - 200px);
-    min-height: calc(100vh - 200px);
+.btn:active, button:active {
+    filter: brightness(60%);
+}
+
+.btn.green {
+    /* width: 4rem; */
+    /* height: 2rem; */
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    background-color: var(--platy-green);
+    border: 1px solid var(--platy-darkgreen);
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
 }
 
 
 /* index.html */
-header, footer {
+header {
+    height: 60px;
+    background-color: var(--dark-bg-secondary);
+}
+
+footer {
     height: 100px;
     background-color: var(--dark-bg-secondary);
 }
 
 main {
-    /* height: calc(100vh - 200px); */
     height: 100%;
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 160px);
 }
 
 nav, footer > div {
@@ -129,17 +154,21 @@ nav ul {
     justify-content: space-between;
 }
 
+nav li > * {
+    margin: 0 5px;
+}
+
 nav h2 {
     font-size: 2.2rem;
     font-weight: 700;
     color: var(--platy-yellow);
 }
 
-nav .btn {
+/* nav .btn {
     width: fit-content;
     height: fit-content;
     padding: 5px 10px;
-}
+} */
 
 #platy-logo {
     width: 40px;
@@ -172,8 +201,6 @@ footer a:active {
 
 
 /* landing.html */
-
-
 .landing > section {
     display: flex;
     flex-direction: column;
@@ -212,8 +239,25 @@ footer a:active {
 }
 
 .home section > div {
-    
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+.home a {
+    text-decoration: underline;
+    color: var(--platy-lightblue);
+    transition: filter 0.3s;
+}
+.home a:hover {
+    filter: brightness(80%);
+}
+.home a:active {
+    filter: brightness(60%);
+}
+
 
 /* login.html */
 .login {
@@ -255,8 +299,12 @@ footer a:active {
 .btn.login {
     width: 4rem;
     height: 2rem;
-    background-color: chartreuse;
-    border: 1px solid rgba(0, 128, 0, 0.3);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    background-color: var(--platy-green);
+    border: 1px solid var(--platy-darkgreen);
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
     box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -317,10 +365,7 @@ footer a:active {
 .signup form > div {
     display: flex;
     flex-direction: column;
-    /* margin-bottom: 15px; */
     padding: 0 5px;
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 
 .signup form > div > div:first-child {
@@ -342,16 +387,9 @@ footer a:active {
 }
 
 .signup form > div:last-child {
-    margin-top: 15px;
+    min-height: 50px;
+    justify-content: center;
     align-items: center;
-}
-
-.signup button {
-    width: 4rem;
-    height: 2rem;
-    background-color: chartreuse;
-    border: 1px solid rgba(0, 128, 0, 0.3);
-    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -364,7 +402,6 @@ footer a:active {
 .search section {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
 }
 

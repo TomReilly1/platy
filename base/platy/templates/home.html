@@ -24,21 +24,14 @@
 
     <section>
         <div>
-            <h1>{{user}}'s Home</h1>
-        </div>
-        <div>
-            <p>
-                Select a friend from your sidebar to start messaging
-                <br>
-                <span style="font-style: italic;">or</span>
-                <br>
-                <a href="{% url 'search' %}">Search</a> for new friends
-            </p>
+            <p>Select a friend from your sidebar to start messaging</p>
+            <br>
+            <span style="font-style: italic;">or</span>
+            <br>
+            <p><a href="{% url 'search' %}">Search</a> for new friends</p> 
         </div>
 
-        {% comment %}
-
-        {% endcomment %}
+        {% comment %}{% endcomment %}
     </section>
 </div>
 {% endblock %}
