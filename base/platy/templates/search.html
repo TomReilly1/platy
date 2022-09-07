@@ -9,9 +9,14 @@
             {{ form }}
             <input type="submit" value="Submit">
         </form>
+
         <h2>Results</h2>
         <ul class="results-list">
-            {% if userlist %}
+            {% if userlist.0.name == '' %}
+            <li class="results-item">
+                <span>Search users for results</span>
+            </li>
+            {% elif userlist %}    
             {% for u in userlist %}
             <li class="results-item">
                 <span>{{u.name}}</span>
@@ -25,19 +30,7 @@
             {% endif %}
         </ul>
 
-        {% comment %}
-        <form id="search-users-form" method="post">
-            <label for="search-users">Search for a user to message or befreind:</label>
-            <input id="search-users" name="search-users" type="text">
-            <input type="submit">
-        </form>
-        {% endcomment %}
-
-
-
-        {% comment %}
-
-        {% endcomment %}
+        {% comment %}{% endcomment %}
     </section>
 </div>
 {% endblock %}

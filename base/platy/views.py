@@ -43,9 +43,6 @@ def search_view(request):
             
             user_list = list(map(lambda obj: {'name':obj.username}, search_request))
 
-            # for i in user_list:
-                # print(i['name'])
-
             return render(request, 'search.html', {'form': form, 'userlist': user_list})
     # GET Method
     else:
