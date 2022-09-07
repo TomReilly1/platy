@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block main %}
+<div class="container search">
+    <section>
+        <h1>Search</h1>   
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+        <h2>Results</h2>
+        <ul class="results-list">
+            {% if userlist %}
+            {% for u in userlist %}
+            <li class="results-item">
+                <span>{{u.name}}</span>
+                <input type="button" value="+ Add friend">
+            </li>
+            {% endfor %}
+            {% else %}
+            <li class="results-item">
+                <span>No matches</span>
+            </li>
+            {% endif %}
+        </ul>
+
+        {% comment %}
+        <form id="search-users-form" method="post">
+            <label for="search-users">Search for a user to message or befreind:</label>
+            <input id="search-users" name="search-users" type="text">
+            <input type="submit">
+        </form>
+        {% endcomment %}
+
+
+
+        {% comment %}
+
+        {% endcomment %}
+    </section>
+</div>
+{% endblock %}

@@ -4,18 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Platy | A messaging app</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 </head>
 <body>
     <div id="root">
         <header>
-            {% block header %}{% endblock %}
+            <nav>
+                <ul>
+                    <li>
+                        <img id="platy-logo" src="{% static 'platypus.webp' %}" alt="Platy logo">
+                        <h2>
+                            <a href="/">Platy</a>
+                        </h2>
+                    </li>
+                    <li>
+                        <div>
+                            {% if user.is_authenticated %}
+                            <a id="navbar-username" href="{% url 'home' %}">{{user}}</a>
+                            <a class="btn" href="{% url 'logout' %}" role="button">Logout</a>
+                            {% else %}
+                            <span id="navbar-username">Hello, stranger!</span>
+                            <a class="btn" href="{% url 'login' %}" role="button">Login</a>
+                            <a class="btn" href="{% url 'signup' %}" role="button">Sign Up</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
         </header>
+        
         <main>
             {% block main %}{% endblock %}
         </main>
+        
         <footer>
-            {% block footer %}{% endblock %}
+            <div>
+                <ul>
+                    <li>
+                        <span>&copy; 2022 Platy</span>
+                    </li>
+                    <li>
+                        <a href="https://github.com/TomReilly1/platy">Github</a>
+                    </li>
+                </ul>
+            </div>
         </footer>
     </div>
 </body>

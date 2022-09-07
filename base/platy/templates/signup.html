@@ -1,21 +1,32 @@
 {% extends "index.html" %}
 
 {% block main %}
-<h1>Sign up Form</h1>
-<form method="post">
-    {% csrf_token %}
+<div class="container signup">
+    <h1>Sign up Form</h1>
 
-    {% for field in form %}    
-    <p>
-        {{ field.label_tag }} 
-        <br>
-        {{ field }}
-        {% if field.help_text %}
-        <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-    </p>
-    {% endfor %}
-
-    <button type="submit">Sign up</button>
-</form>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+    
+            {% for field in form %}
+            <div>
+                <div>
+                    {{ field.label_tag }} 
+                    {{ field }}
+                </div>
+                <div>
+                    {% if field.help_text %}
+                    <small>{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+            
+            <div>
+                <button type="submit">Sign up</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

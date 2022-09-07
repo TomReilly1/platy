@@ -1,7 +1,44 @@
 {% extends 'index.html' %}
 
 {% block main %}
-<div>
-    
+<div class="container home">
+    <article>
+        <div>
+            <h3>Friends List</h3>
+        </div>
+        {% comment %}
+
+        <div>
+            <a href="#">Add a Friend +</a>
+        </div>
+        <ul>
+            {% for friend in friends_list %}
+            <li>
+                <span>{{friend.username}}</span>
+            </li>
+            {% endfor %}
+        </ul>        
+        
+        {% endcomment %}
+    </article>
+
+    <section>
+        <div>
+            <h1>{{user}}'s Home</h1>
+        </div>
+        <div>
+            <p>
+                Select a friend from your sidebar to start messaging
+                <br>
+                <span style="font-style: italic;">or</span>
+                <br>
+                <a href="{% url 'search' %}">Search</a> for new friends
+            </p>
+        </div>
+
+        {% comment %}
+
+        {% endcomment %}
+    </section>
 </div>
 {% endblock %}
