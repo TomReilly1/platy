@@ -1,0 +1,390 @@
+:root {
+    --platy-yellow: rgb(255, 210, 8);
+    --platy-lightblue: rgb(66, 185, 206);
+    --platy-blue: rgb(68, 136, 191);
+
+    --dark-bg-primary: rgb(43, 52, 92);
+    --dark-bg-secondary: rgb(28, 36, 70);
+    --dark-bg-tertiary: rgb(35, 43, 80);
+    --dark-primary: rgb(64, 74, 119);
+    --dark-secondary: rgb(90, 101, 139);
+    --dark-font-primary: rgb(220,220,220);
+    --dark-font-muted: rgb(159, 161, 190);
+    --dark-button: rgb(100,100,100);
+
+    --light-bg: rgb(43, 52, 92);
+    --light-font: rgb(220,220,220);
+
+
+
+
+    --ttgray1: rgb(207, 217, 219);
+    --ttgray2: rgb(100, 100, 100);
+    --ttyellow1: rgb(255, 255, 139);
+}
+
+html, body {
+    min-height: 100vh;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--dark-bg-primary);
+    color: var(--dark-font-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    /* font-family: Georgia, 'Times New Roman', Times, serif; */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    /* font-family: 'Courier New', Courier, monospace; */
+    color: var(--platy-yellow);
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+}
+
+h2 {
+    color: var(--platy-lightblue);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 1.4rem;
+}
+
+h4 {
+    font-size: 1.1rem;
+    font-weight: normal;
+}
+
+hr {
+    height: 1px;
+    border: 0;
+    background-color: var(--platy-yellow);
+}
+
+.btn, button {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 5px;
+    padding: 0px;
+    background-color: var(--dark-button);
+    transition: filter 0.2s;
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+}
+
+.btn:hover, button:hover {
+    filter: brightness(90%);
+}
+
+.btn:active, button:active {
+    filter: brightness(80%);
+}
+
+.container {
+    width: 100%;
+    height: calc(100vh - 200px);
+    min-height: calc(100vh - 200px);
+}
+
+
+/* index.html */
+header, footer {
+    height: 100px;
+    background-color: var(--dark-bg-secondary);
+}
+
+main {
+    /* height: calc(100vh - 200px); */
+    height: 100%;
+    min-height: calc(100vh - 200px);
+}
+
+nav, footer > div {
+    width: calc(100% - 80px);
+    height: 100%;
+    padding: 0 50px 0 30px;
+}
+
+nav ul, footer ul {
+    display: flex;
+    height: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li, footer li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul {
+    justify-content: space-between;
+}
+
+nav h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--platy-yellow);
+}
+
+nav .btn {
+    width: fit-content;
+    height: fit-content;
+    padding: 5px 10px;
+}
+
+#platy-logo {
+    width: 40px;
+    height: 40px;
+}
+
+#navbar-username {
+    margin-right: 10px;
+    font-size: 1.4rem;
+}
+
+footer ul {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+footer a {
+    color: var(--dark-font-primary);
+    transition: filter 0.3s;
+}
+
+footer a:hover {
+    filter: brightness(70%);
+}
+
+footer a:active {
+    filter: brightness(50%);
+}
+
+
+/* landing.html */
+
+
+.landing > section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 33.33%;
+    padding: 0 50px;
+    text-align: center;
+}
+
+.landing h1 {
+    font-size: 4rem;
+}
+
+.landing h3 {
+    font-size: 2rem;
+    font-style: italic;
+}
+
+
+/* home.html */
+.home {
+    display: flex;
+}
+
+.home > article {
+    width: 150px;
+    background-color: var(--dark-bg-tertiary);
+}
+
+.home > section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 150px);
+}
+
+.home section > div {
+    
+}
+
+/* login.html */
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+}
+
+.login > div {
+    width: 300px;
+    margin: 0 0 20px;
+    padding: 10px;
+    background-color: var(--dark-primary);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.login form > * {
+    margin: 10px 0;
+}
+
+.login form > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.btn.login {
+    width: 4rem;
+    height: 2rem;
+    background-color: chartreuse;
+    border: 1px solid rgba(0, 128, 0, 0.3);
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
+}
+
+.login label {
+    line-height: 1.5rem;
+    vertical-align: middle;
+}
+
+
+.error {
+    font-size: 0.9rem;
+    color: rgb(207, 30, 30);
+}
+
+/* logged_out.html */
+.logout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.logout a {
+    text-decoration: underline;
+    color: var(--platy-lightblue);
+    transition: filter 0.3s;
+}
+.logout a:hover {
+    filter: brightness(80%);
+}
+.logout a:active {
+    filter: brightness(60%);
+}
+
+/* signup.html */
+.signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 30px 0;
+}
+
+.signup > div {
+    width: 320px;
+    height: 500px;
+    /* margin: 0 0 20px; */
+    padding: 10px;
+    background-color: var(--dark-primary);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+.signup form > div {
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 15px; */
+    padding: 0 5px;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.signup form > div > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.signup input {
+    height: fit-content;
+    font-size: 1rem;
+}
+
+.signup small {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--dark-font-muted);
+}
+
+.signup form > div:last-child {
+    margin-top: 15px;
+    align-items: center;
+}
+
+.signup button {
+    width: 4rem;
+    height: 2rem;
+    background-color: chartreuse;
+    border: 1px solid rgba(0, 128, 0, 0.3);
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
+}
+
+
+/* search.html */
+.search {
+    display: flex;
+    justify-content: center;
+}
+
+.search section {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.search h2 {
+    margin-top: 50px;
+}
+
+.search .results-list {
+    min-width: 300px;
+    min-height: 50px;
+    margin: 0;
+    padding: 0;
+    background-color: var(--dark-bg-secondary);
+}
+
+.search .results-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin: 2px;
+    background-color: var(--dark-bg-tertiary);
+}
