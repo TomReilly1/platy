@@ -11,7 +11,7 @@ class DirectMessages(models.Model):
 
     def __str__(self):
         text = self.text_content if len(self.text_content) < 23 else self.text_content[:20] + '...'
-        return f'Sender: {self.sender}, Receiver: {self.receiver}, Text: {text}'
+        return f'Sender: {self.msg_sender}, Receiver: {self.msg_receiver}, Text: {text}'
 
 class Friends(models.Model):
     req_sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='req_sender_user')
@@ -24,6 +24,21 @@ class Friends(models.Model):
         if not self.is_accepted:
             flag = ' not '
 
-        return f'{self.req_sender} has sent a request to {self.receiver}. It has{flag}been accepted.'
+        return f'{self.req_sender} has sent a request to {self.req_receiver}. It has{flag}been accepted.'
 
 
+"""
+class Option(Model):
+    name = CharField()
+
+class Thing(TimeStampedModel):
+    options = ManyToManyField("Option", through="ThingOption")    
+
+class ThingOption(Model):
+    thing = ForeignKey(Thing)
+    option = ForeignKey(Option)
+    value = CharField()
+
+    class Meta:
+        unique_together = ('thing', 'option')
+"""
