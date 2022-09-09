@@ -3,25 +3,42 @@
 {% block main %}
 <div class="container home">
     <article>
-        <div>
-            <h3>Friends List</h3>
-        </div>
-        {% comment %}
+        <h4>Pending Friend Requests</h4>
+        <ul>
+        {% for req in pending %}
+            <li>
+                <span>{{req}}</span>
+            </li>
+        {% endfor %}
+        </ul>
 
+        <hr>
+
+        <h4>Received Friend Requests</h4>
+        <ul>
+        {% for req in received %}
+            <li>
+                <span>{{req}}</span>
+            </li>
+        {% endfor %}
+        </ul>
+
+        <hr>
+
+        <h4>Friends List</h4>
         <div>
-            <a href="#">Add a Friend +</a>
+            <a href="{% url 'search' %}">Add a Friend +</a>
         </div>
         <ul>
-            {% for friend in friends_list %}
+            {% for friend in friends %}
             <li>
-                <span>{{friend.username}}</span>
+                <span>{{friend}}</span>
             </li>
             {% endfor %}
         </ul>        
-        
+        {% comment %}
         {% endcomment %}
     </article>
-
     <section>
         <div>
             <p>Select a friend from your sidebar to start messaging</p>

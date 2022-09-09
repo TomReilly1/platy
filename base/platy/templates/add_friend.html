@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block main %}
+<div class="container add-friend">
+    <div>
+        <p>
+            Your friend request to {{target}} was successfull!
+        </p>
+        <p>
+            You can go back to your <a href="{% url 'home' %}">home</a> page or <a href="{% url 'search' %}">search</a> for more friends.
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -19,8 +19,25 @@
             {% elif userlist %}    
             {% for u in userlist %}
             <li class="results-item">
-                <span>{{u.name}}</span>
-                <input type="button" value="+ Add friend">
+                <div>
+                    <span>{{u.name}}</span>
+                </div>
+                <div>
+                    {% if u.are_friends %}
+                    <div>
+                        <span>Already Friends!</span>
+                    </div>
+                    {% elif u.has_requested %}
+                    <div>
+                        <span>Request sent</span>
+                    </div>
+                    {% else %}
+                    <form action="{% url 'add_friend' user u.name %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="+ Add friend" class="btn green">
+                    </form>
+                    {% endif %}
+                </div>
             </li>
             {% endfor %}
             {% else %}
