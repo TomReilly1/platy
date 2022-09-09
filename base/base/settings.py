@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     
     'django.contrib.postgres',
     'platy',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

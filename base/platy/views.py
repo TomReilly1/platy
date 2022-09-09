@@ -129,7 +129,12 @@ def add_friend_view(request, sender, receiver):
         return redirect('error')
 
 
+
+
+
 @require_GET
 def error_view(request):
     return render(request, 'error.html')
+
+
 
