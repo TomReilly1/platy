@@ -1,3 +1,6 @@
+import requests
+import json
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -19,27 +22,33 @@ def landing_view(request):
 @login_required(login_url='/accounts/login/')
 @require_GET
 def home_view(request):
+    # print(requests.get('http://localhost:8000/api/get-users').text)
+    print(request.user.id)
+
     req_pending = Friends.objects.filter(req_sender_id=request.user.id).filter(is_accepted=False)
     req_received = Friends.objects.filter(req_receiver_id=request.user.id).filter(is_accepted=False)
     friends = Friends.objects.filter(is_accepted=True)\
         .filter(Q(req_sender_id=request.user.id) | Q(req_receiver_id=request.user.id))
-    print(request.user.id)
+    
     print(req_pending)
+    print(req_received)
     # print(req_pending[0].req_receiver.username)
     # print(req_received[0].req_sender.username)
     print(friends)
 
-
+    # pending_req_list = list(req_pending)
     pending_req_list = list(map(lambda obj: obj.req_receiver.username, req_pending))
     print(pending_req_list)
-    received_req_list = list(map(lambda obj: obj.req_sender.username, req_received))
-    print(received_req_list)
+    received_req_list = list(req_received)
+    # received_req_list = list(map(lambda obj: obj.req_sender.username, req_received))
+    # print(received_req_list)
     friends_list = []
     for f in friends:
-        if f.req_receiver.username == request.user:
-            friends_list.append(f.req_receiver.username)
-        elif f.req_sender.username == request.user:
-            friends_list.append(f.req_receiver.username)
+        # print(f.req_receiver)
+        if f.req_receiver == request.user:
+            friends_list.append(f.req_sender)
+        elif f.req_sender == request.user:
+            friends_list.append(f.req_receiver)
         else:
             raise 'CUSTOM ERROR: Unkown error in creating friends list'
     # friends_list = list(map(lambda obj: obj.username, friends))

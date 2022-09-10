@@ -3,38 +3,62 @@
 {% block main %}
 <div class="container home">
     <article>
-        <h4>Pending Friend Requests</h4>
+        <div>
+            <h4>Pending Requests</h4>
+        </div>        
         <ul>
+        {% if pending %}
         {% for req in pending %}
             <li>
                 <span>{{req}}</span>
             </li>
         {% endfor %}
-        </ul>
-
-        <hr>
-
-        <h4>Received Friend Requests</h4>
-        <ul>
-        {% for req in received %}
+        {% else %}
             <li>
-                <span>{{req}}</span>
+                <span class="note">No pending requests</span>
             </li>
-        {% endfor %}
+        {% endif %}
         </ul>
 
-        <hr>
-
-        <h4>Friends List</h4>
         <div>
-            <a href="{% url 'search' %}">Add a Friend +</a>
+            <h4>Received Requests</h4>
         </div>
         <ul>
+        {% if received %}
+        {% for req in received %}
+            <li>
+                <span>{{req.req_sender}}</span>
+                
+                <form action="{% url 'confirm_friend_api' req.req_sender.id %}" method="POST">
+                    {% csrf_token %}
+                    {% load static %}
+                    <input type="image" src="{% static '/bs-icons/person-check.svg' %}" alt="confirm friend request" class="icon">
+                </form>
+                {% comment %}{% endcomment %}
+            </li>
+        {% endfor %}
+        {% else %}
+            <li>
+                <span class="note">No new requests</span>
+            </li>
+        {% endif %}
+        </ul>
+        
+
+        <div>
+            <h4>Friends List</h4>
+        </div>
+        <ul>
+            <li>
+                <span><a href="{% url 'search' %}">Add a Friend</a></span>
+            </li>
+            {% if friends %}
             {% for friend in friends %}
             <li>
                 <span>{{friend}}</span>
             </li>
             {% endfor %}
+            {% endif %}
         </ul>        
         {% comment %}
         {% endcomment %}
