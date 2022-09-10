@@ -5,19 +5,11 @@ import sys
 
 from django.core.management.commands.runserver import Command as runserver
 import environ
-env = environ.Env()
-environ.Env.read_env()
-
 
 
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings')
-
-
-    runserver.default_port = env('PORT')
-
-
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -26,6 +18,11 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+    env = environ.Env()
+    environ.Env.read_env()
+    runserver.default_port = env('PORT')
+
     execute_from_command_line(sys.argv)
 
 
