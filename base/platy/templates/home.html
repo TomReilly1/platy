@@ -2,6 +2,7 @@
 
 {% block main %}
 <div class="container home">
+    {% block article %}
     <article>
         <div>
             <h4>Pending Requests</h4>
@@ -53,17 +54,95 @@
                 <span><a href="{% url 'search' %}">Add a Friend</a></span>
             </li>
             {% if friends %}
-            {% for friend in friends %}
+                {% for friend in friends %}
+                    {% if friend.req_receiver == user %}
             <li>
-                <span>{{friend}}</span>
+                <a href="{% url 'home' friend.req_sender %}">{{friend.req_sender}}</a>
             </li>
-            {% endfor %}
+                    {% elif friend.req_sender == user %}
+            <li>
+                <a href="{% url 'home' friend.req_receiver %}">{{friend.req_receiver}}</a>
+            </li>
+                    {% endif %}
+                    {% endfor %}
             {% endif %}
         </ul>        
         {% comment %}
         {% endcomment %}
     </article>
+    {% endblock article %}
+
+    {% block section %}
     <section>
+        {% if active_target %}
+        <div class="chat">
+            <div class="message title">
+                <h3>{{active_target}} + {{user}}</h3>
+            </div>
+            <div class="message read" id="messages-sent">
+                {% for msg in stored_messages %}
+                    {% if user.id == msg.msg_sender_id %}
+                <div class="msg-text sender">
+                    <div>
+                        <small class="note">{{msg.date_posted}}</small>
+                        <p>{{msg.text_content}}</p>
+                    </div>
+                </div>
+                    {% else %}
+                <div class="msg-text receiver">
+                    <div>
+                        <small class="note">{{msg.date_posted}}</small>
+                        <p>{{msg.text_content}}</p>
+                    </div>
+                </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="message input">
+                <form id="message-form">
+                    {% comment %}
+                    <input type="text" name="message" id="message">
+                    <label for="send-icon">
+                        <i class="bi-send" style="font-size: 1.5rem; color: var(--platy-lightblue);"></i>
+                    </label>
+                    <input type="image" id="send-icon" name="send-icon" alt="">                    
+                    {% endcomment %}
+                    <textarea name="message" id="message" class="styled-scrollbars" required></textarea>
+                    <input type="image" id="send-icon" name="send-icon" src="{% static 'icons8-email-send-48.png' %}" alt="send icon">
+                </form>
+            </div>
+            <script type="text/javascript">
+                let url = `ws://${window.location.host}/ws/{{user}}/{{active_target}}/`
+                
+                let chatSocket = new WebSocket(url)
+            
+                chatSocket.onmessage = function(e) {
+                    let data = JSON.parse(e.data)
+                    console.log('CUSTOM data:', data)
+
+                    if (data.type === 'chat') {
+                        let messages = document.getElementById('messages-sent')
+
+                        messages.insertAdjacentHTML('beforeend', `<div><p>${data.message}</p></div>`)
+                    }
+                }
+
+                let form = document.getElementById('message-form')
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault()
+                    let message = e.target.message.value
+                    chatSocket.send(JSON.stringify({
+                        'chat_sender': '{{user}}',
+                        'chat_target': '{{active_target}}',
+                        'message': message
+                    }))
+                    form.reset()
+                })
+
+
+            </script>
+        </div>
+        {% else %}
         <div>
             <p>Select a friend from your sidebar to start messaging</p>
             <br>
@@ -71,8 +150,9 @@
             <br>
             <p><a href="{% url 'search' %}">Search</a> for new friends</p> 
         </div>
-
+        {% endif %}
         {% comment %}{% endcomment %}
     </section>
+    {% endblock section %}
 </div>
-{% endblock %}
+{% endblock main %}

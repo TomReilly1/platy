@@ -6,6 +6,10 @@ import sys
 from django.core.management.commands.runserver import Command as runserver
 import environ
 
+env = environ.Env()
+environ.Env.read_env()
+dj_port = env('DJ_PORT')
+
 
 def main():
     """Run administrative tasks."""
@@ -19,9 +23,8 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
 
-    env = environ.Env()
-    environ.Env.read_env()
-    runserver.default_port = env('PORT')
+    
+    runserver.default_port = dj_port
 
     execute_from_command_line(sys.argv)
 
