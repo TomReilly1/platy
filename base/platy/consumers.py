@@ -1,5 +1,5 @@
 import json
-import secrets
+import datetime as dt
 
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
@@ -26,8 +26,6 @@ class ChatConsumer(WebsocketConsumer):
         )[0]
 
         print(friendship.id)
-
-        # self.room_group_naWme = 'testing'
         
         self.room_group_name = str(friendship.id).strip()
         print('Will be added to group', self.room_group_name)
@@ -37,9 +35,7 @@ class ChatConsumer(WebsocketConsumer):
             self.channel_name
         )
 
-
         self.accept()
-
 
         self.send(text_data=json.dumps({
             'type': 'connection_established',
@@ -47,45 +43,45 @@ class ChatConsumer(WebsocketConsumer):
             })
         )
 
+
     def receive(self, text_data=None):
         text_data_json = json.loads(text_data)
         sender = text_data_json['chat_sender']
         target = text_data_json['chat_target'] 
         message = text_data_json['message']
-      
+        curr_datetime = dt.datetime.now(dt.timezone.utc)
+
         print(f'From {sender}, to {target} ==>')
         print('WS Message:', message)
-
 
         l_sender_user = User.objects.get(username=sender)
         l_target_user = User.objects.get(username=target)
         new_msg = DirectMessages(
             text_content=message,
             msg_receiver_id=l_target_user.id,
-            msg_sender_id=l_sender_user.id
+            msg_sender_id=l_sender_user.id,
+            date_posted = curr_datetime
         )
         new_msg.save()
-
 
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': message
+                'message': message,
+                'datetime': curr_datetime
             }
         )
 
-        # self.send(text_data=json.dumps({
-            # 'type': 'chat',
-            # 'message': message
-        # }))
 
     def chat_message(self, event):
         message = event['message']
-
+        datetime = event['datetime']    # cannot serialize datetime obj
+        datetime_str = str(datetime)    # so convert to str
         self.send(text_data=json.dumps({
             'type': 'chat',
-            'message': message
+            'message': message,
+            'datetime': datetime_str
         }))
 
 

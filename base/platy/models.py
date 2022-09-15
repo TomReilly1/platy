@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 # from django.contrib.postgres import search
 
 # Create your models here.
@@ -7,7 +8,10 @@ class DirectMessages(models.Model):
     msg_sender = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='msg_sender_user')
     msg_receiver = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='msg_receiver_user')
     text_content = models.TextField(max_length=2000)
-    date_posted = models.DateTimeField(auto_now_add=True)
+    # date_posted = models.DateTimeField(auto_now_add=True)
+    date_posted = models.DateTimeField(default=timezone.now())
+    # For DateTimeField: default=timezone.now - from django.utils.timezone.now()
+    
 
     def __str__(self):
         text = self.text_content if len(self.text_content) < 23 else self.text_content[:20] + '...'

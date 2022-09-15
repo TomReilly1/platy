@@ -11,7 +11,7 @@
         {% if pending %}
         {% for req in pending %}
             <li>
-                <span>{{req}}</span>
+                <span>{{req.req_receiver}}</span>
             </li>
         {% endfor %}
         {% else %}
@@ -77,9 +77,9 @@
         {% if active_target %}
         <div class="chat">
             <div class="message title">
-                <h3>{{active_target}} + {{user}}</h3>
+                <h4>{{active_target}}</h3>
             </div>
-            <div class="message read" id="messages-sent">
+            <div class="message read styled-scrollbars" id="messages-sent">
                 {% for msg in stored_messages %}
                     {% if user.id == msg.msg_sender_id %}
                 <div class="msg-text sender">
@@ -98,6 +98,10 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            <script type="text/javascript">
+                const messages = document.getElementById("messages-sent")
+                messages.scrollTop = messages.scrollHeight
+            </script>
             <div class="message input">
                 <form id="message-form">
                     {% comment %}
@@ -112,25 +116,45 @@
                 </form>
             </div>
             <script type="text/javascript">
-                let url = `ws://${window.location.host}/ws/{{user}}/{{active_target}}/`
-                
-                let chatSocket = new WebSocket(url)
+                const url = `ws://${window.location.host}/ws/{{user}}/{{active_target}}/`                
+                const chatSocket = new WebSocket(url)
             
                 chatSocket.onmessage = function(e) {
-                    let data = JSON.parse(e.data)
+                    const data = JSON.parse(e.data)
                     console.log('CUSTOM data:', data)
 
                     if (data.type === 'chat') {
-                        let messages = document.getElementById('messages-sent')
+                        const messages = document.getElementById('messages-sent')
 
-                        messages.insertAdjacentHTML('beforeend', `<div><p>${data.message}</p></div>`)
+                        const date = new Date(data.datetime)
+
+                        const options = {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        }
+
+                        const timeStr = date.toLocaleTimeString('en-US')
+                        const dateStr = date.toLocaleDateString('en-US', options)
+
+                        const datetimeStr = dateStr + ' ' + timeStr
+
+                        messages.insertAdjacentHTML('beforeend', 
+                            `<div class="msg-text sender">
+                                <div>
+                                    <small class="note">${datetimeStr}</small>
+                                    <p>${data.message}</p>
+                                </div>
+                            </div>`
+                        )
                     }
                 }
 
-                let form = document.getElementById('message-form')
+
+                const form = document.getElementById('message-form')
                 form.addEventListener('submit', (e) => {
                     e.preventDefault()
-                    let message = e.target.message.value
+                    const message = e.target.message.value
                     chatSocket.send(JSON.stringify({
                         'chat_sender': '{{user}}',
                         'chat_target': '{{active_target}}',
@@ -138,7 +162,6 @@
                     }))
                     form.reset()
                 })
-
 
             </script>
         </div>
