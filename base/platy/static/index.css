@@ -34,6 +34,7 @@
 }
 
 html, body {
+    height: 100vh;
     min-height: 100vh;
     /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
     font-family: 'Courier New', Courier, monospace;
@@ -96,8 +97,9 @@ hr {
 
 .container {
     width: 100%;
-    height: calc(100vh - 140px);
-    min-height: calc(100vh - 140px);
+    height: calc(100vh - 120px);
+    /* min-height: calc(100vh - 120px); */
+    min-height: 500px;
 }
 
 /* buttons */
@@ -137,31 +139,40 @@ hr {
 
 /* scrollbar style */
 .styled-scrollbars {
-    scrollbar-color: #999 #333;
+    scrollbar-color: blue yellow;
 }
 .styled-scrollbars::-webkit-scrollbar {
-    width: 10px; /* Mostly for vertical scrollbars */
+    width: 15px; /* Mostly for vertical scrollbars */
     height: 10px; /* Mostly for horizontal scrollbars */
 }
 .styled-scrollbars::-webkit-scrollbar-thumb { /* Foreground */
-    background: #999;
+    background: var(--platy-blue);
+    border-radius: 7px;
 }
 .styled-scrollbars::-webkit-scrollbar-track { /* Background */
-    background: #333;
+    background: var(--dark-bg-primary);
+}
+/* .styled-scrollbars::-webkit-scrollbar-button {
+    color: black;
+    background-color: blueviolet;
+} */
+.styled-scrollbars::-webkit-scrollbar-corner {
+    border-radius: 5px;
+    background-color: blue;
 }
 
 
 
 /* index.html */
-header {
+header, footer {
     height: 60px;
     background-color: var(--dark-bg-secondary);
 }
 
-footer {
+/* footer {
     height: 80px;
     background-color: var(--dark-bg-secondary);
-}
+} */
 
 main {
     height: 100%;
@@ -231,8 +242,8 @@ nav h2 {
 }
 
 footer ul {
-    flex-direction: column;
-    justify-content: space-around;
+    /* flex-direction: column; */
+    justify-content: center;
     align-items: center;
 }
 
@@ -555,7 +566,7 @@ footer a:active {
 
 /* chat extensions of home.html */
 .chat {
-    width: 90%;
+    width: 100%;
     height: 100%;
     background-color: var(--dark-primary);
 }
@@ -571,14 +582,18 @@ footer a:active {
     height: 10%;
 }
 .message.read {
-    height: 80%;
+    width: calc(100% - 30px);
+    padding: 0 10px;
+    height: 75%;
+    overflow-y: scroll;
 }
 .message.input {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10%;
+    height: 15%;
 }
+
 
 #message-form {
     display: flex;
@@ -591,12 +606,19 @@ footer a:active {
 #message {
     resize: none;
     width: calc(100% - 100px);
-    height: 90%;
+    height: 3rem;
     background-color: var(--dark-bg-primary);
     border-radius: 10px;
+    padding: 5px;
     color: var(--dark-font-primary);
     border: none;
-    outline: none;
+    /* outline: rgba(0, 4, 255, 0.5) solid 10px; */
+    font-size: 0.9rem;
+    cursor: auto;
+}
+
+#message:focus {
+    outline: rgba(138, 140, 255, 0.5) solid 2px;
 }
 
 #send-icon {
@@ -605,14 +627,14 @@ footer a:active {
     padding: 5px 5px 2px 2px;
     border-radius: 100%;
     filter: brightness(100%);
-    /* box-shadow: inset 0 0 15px 2px rgba(200,200,200,0); */
-    background-color: transparent;
-    transition: filter 0.3s, background-color 0.3s;
+    /* background-color: transparent; */
+    box-shadow: inset 0 0 15px 2px rgba(200,200,200,0);
+    transition: filter 0.3s, box-shadow 0.3s;
 }
 #send-icon:hover {
-    filter: brightness(80%);
-    background-color: rgba(255, 200, 100, 0.2);
-    /* box-shadow: inset 0 0 15px 2px rgba(200,200,200,0.7); */
+    filter: brightness(70%);
+    /* background-color: rgba(255, 255, 255, 0.1); */
+    box-shadow: inset 0 0 15px 2px rgba(200,200,200,0.3);
 }
 #send-icon:active {
     filter: brightness(60%);
