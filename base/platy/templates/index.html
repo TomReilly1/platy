@@ -21,10 +21,11 @@
             <nav>
                 <ul>
                     <li>
-                        <img id="platy-logo" src="{% static 'platypus.webp' %}" alt="Platy logo">
-                        <h2>
-                            <a href="/">Platy</a>
-                        </h2>
+                        <!-- <img id="platy-logo" src="{% static 'platypus.webp' %}" alt="Platy logo"> -->  
+                        <a href="{% url 'landing' %}" id="platy-nav-title">
+                            <img id="platy-nav-logo" src="{% static 'platypus.webp' %}" alt="Platy logo">
+                            <h2 id="platy-nav-text">Platy</h2>
+                        </a>
                     </li>
                     <li>
                         <!-- <div> -->
