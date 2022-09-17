@@ -12,9 +12,10 @@ environ.Env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('IS_DEBUG')
 
-ALLOWED_HOSTS = []
+# Hosts that are allowed connections
+ALLOWED_HOSTS = ['thomasreilly.dev', env('DB_HOST'), 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -137,5 +138,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/platy/home'
 
+
+# Set this to True to avoid transmitting the CSRF cookie over HTTP accidentally.
+CSRF_COOKIE_SECURE = env('SAFE_COOKIES')
+
+# Set this to True to avoid transmitting the session cookie over HTTP accidentally.
+SESSION_COOKIE_SECURE = env('SAFE_COOKIES')
+
+# https redirects
+SECURE_SSL_REDIRECT = env('SSL_REDIRECT')

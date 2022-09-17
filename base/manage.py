@@ -3,12 +3,12 @@
 import os
 import sys
 
-from django.core.management.commands.runserver import Command as runserver
-import environ
+#from django.core.management.commands.runserver import Command as runserver
+#import environ
 
-env = environ.Env()
-environ.Env.read_env()
-dj_port = env('DJ_PORT')
+#env = environ.Env()
+#environ.Env.read_env()
+#dj_port = env('DJ_PORT')
 
 
 def main():
@@ -24,7 +24,7 @@ def main():
         ) from exc
 
     
-    runserver.default_port = dj_port
+    #runserver.default_port = dj_port
 
     execute_from_command_line(sys.argv)
 

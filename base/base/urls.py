@@ -18,8 +18,8 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('api/', include('api.urls')),
-    path('', include('platy.urls')),
+    path('platy/admin/', admin.site.urls),
+    path('platy/accounts/', include('django.contrib.auth.urls')),
+    path('platy/api/', include('api.urls')),
+    path('platy/', include('platy.urls')),
 ]

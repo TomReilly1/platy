@@ -130,3 +130,9 @@ dmypy.json
 
 # VS Code
 *.code-workspace
+
+### CUSTOM ###
+deployment.sh
+Dockerfile
+docker-compose.yml
+.dockerignore
