@@ -485,8 +485,7 @@ footer a:active {
 
 .signup > div {
     width: 320px;
-    height: 500px;
-    /* margin: 0 0 20px; */
+    height: fit-content;
     padding: 10px;
     background-color: var(--dark-primary);
     border-radius: 5px;
