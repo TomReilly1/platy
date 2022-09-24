@@ -12,6 +12,7 @@ from platy.models import Friends, DirectMessages
 
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
+        print('MADE TO CONNECT ChatConsumer')
         print(self.scope['url_route'])
 
         l_sender = self.scope['url_route']['kwargs']['sender']
@@ -64,24 +65,26 @@ class ChatConsumer(WebsocketConsumer):
         )
         new_msg.save()
 
+        curr_datetime_str = str(curr_datetime) # stringify datetime obj
+
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type': 'chat_message',
                 'message': message,
-                'datetime': curr_datetime
+                'datetime': curr_datetime_str
             }
         )
 
 
     def chat_message(self, event):
         message = event['message']
-        datetime = event['datetime']    # cannot serialize datetime obj
-        datetime_str = str(datetime)    # so convert to str
+        datetime = event['datetime']
+
         self.send(text_data=json.dumps({
             'type': 'chat',
             'message': message,
-            'datetime': datetime_str
+            'datetime': datetime
         }))
 
 
