@@ -17,3 +17,18 @@
 <p>
   Platy is a messaging web application that allows a user to signup, login, add friends, and send live messages.
 </p>
+
+<h2>
+  Tools
+</h2>
+
+<ul>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>JS</li>
+  <li>Django</li>
+  <li>Django Channels</li>
+  <li>Postgres</li>
+  <li>Redis</li>
+  <li>Linux (cloud server)</li>
+</ul>
