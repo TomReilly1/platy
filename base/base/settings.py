@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,7 +13,7 @@ environ.Env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('IS_DEBUG')
+DEBUG = env('IS_DEBUG') == 'True'
 
 # Hosts that are allowed connections
 ALLOWED_HOSTS = ['thomasreilly.dev', env('DB_HOST'), 'localhost', '127.0.0.1']
@@ -71,8 +72,14 @@ ASGI_APPLICATION = 'base.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer'
-    }
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+    # 'default': {
+    #     'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    # }
 }
 
 
@@ -142,10 +149,39 @@ LOGIN_REDIRECT_URL = '/platy/home'
 
 
 # Set this to True to avoid transmitting the CSRF cookie over HTTP accidentally.
-CSRF_COOKIE_SECURE = env('SAFE_COOKIES')
+CSRF_COOKIE_SECURE = env('SAFE_COOKIES') == 'True'
 
 # Set this to True to avoid transmitting the session cookie over HTTP accidentally.
-SESSION_COOKIE_SECURE = env('SAFE_COOKIES')
+SESSION_COOKIE_SECURE = env('SAFE_COOKIES') == 'True'
 
 # https redirects
-SECURE_SSL_REDIRECT = env('SSL_REDIRECT')
+SECURE_SSL_REDIRECT = env('SSL_REDIRECT') == 'True'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        # 'file': {
+        #     'level': 'DEBUG',
+        #     'class': 'logging.FileHandler',
+        #     'filename': '/var/log/platy/platy-daphne.log',
+        # },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO'
+        },
+        # 'django': {
+        #     'handlers': ['file'],
+        #     'level': 'DEBUG',
+        #     'propagate': True,
+        # },
+    },
+}

@@ -116,8 +116,29 @@
                 </form>
             </div>
             <script type="text/javascript">
-                const url = `ws://${window.location.host}/ws/{{user}}/{{active_target}}/`                
+                let wsProt = 'ws'
+                if (window.location.protocol == 'https:') {
+                    wsProt = 'wss'
+                }
+
+                const url = `${wsProt}://${window.location.host}/ws/{{user}}/{{active_target}}/`
+
                 const chatSocket = new WebSocket(url)
+
+                // chatSocket.onopen = (e) => {
+                //     console.log('WS OPEN')
+                //     console.log(e)
+                // }
+
+                // chatSocket.onerror = (e) => {
+                //     console.log('WS ERROR')
+                //     console.log(e)
+                // }
+
+                // chatSocket.onclose = (e) => {
+                //     console.log('WS CLOSE')
+                //     console.log(e)
+                // }
             
                 chatSocket.onmessage = function(e) {
                     const data = JSON.parse(e.data)
